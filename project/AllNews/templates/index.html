@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+	<title>News</title>
+    </head>		
+    <body>
+        <h1>All news</h1>
+        {% for aa in aas %}
+        <div>
+            <h2>{{ aa.title }}</h2>
+            <p>{{ aa.tag }}></p>
+            <p>{{ aa.content }}</p>
+            <p>{{ aa.published }}</p>
+        </div>
+        {% endfor %}
+    </body>
+</html>
