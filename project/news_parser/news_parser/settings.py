@@ -6,6 +6,13 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import sys
+sys.path.append('/home/tw/Documents/TermWork/project')
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'News.settings'
+
+import django
+django.setup()
 
 BOT_NAME = 'news_parser'
 

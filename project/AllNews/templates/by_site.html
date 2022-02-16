@@ -2,11 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
-	<title>News</title>
+	<title>Новости: {{ current_site.name }}</title>
     </head>		
     <body>
-        <h1>All news</h1>
+        <h1>Последние:</h1>
+        <h2>Источник: {{ current_site.name }}</h2>
         <div>
+            <a href="/news">Главная</a>
             {% for site in sites %}
             <a href="/news/{{ site.pk }}/">{{ site.name }}</a>
             {% endfor %}
