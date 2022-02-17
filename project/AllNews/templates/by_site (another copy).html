@@ -17,8 +17,8 @@
         <div>
             <h2>{{ article.title }}</h2>
             <p>{{ article.tag }}></p>
-            <p>{{ article.content }}</p>
-            <p>{{ article.link }}</p>
+            <p><a href={{ article.link }}>{{ article.content }}</a></p>
+            <p><a href="/news/{{ article.site.pk }}">{{ article.site.name }}</a><p> 
             <p>{{ article.published }}</p>
         </div>
         {% endfor %}
