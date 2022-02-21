@@ -2,6 +2,24 @@
 
 {% block content %}
 
-<p> ДОБАВЛЕНИЕ ВСЯЧИНЫ </p>
+<form action="">
+  <p>Источники для отображения в "Моей ленте":</p>
+  <select multiple name="del_sites">
+    {% for site in my_sites %}
+    <option value={{ site.pk }}> {{site.name}} - {{site.link}}</option>
+    {% endfor %} 
+  </select>
+  <input type="submit" value="Удалить">
+</form><br/>
+
+<form action="">
+  <p>Добавить источник:</p>
+  <select multiple name="add_sites">
+    {% for site in all_sites %}
+    <option value={{ site.pk }}>{{ site.name }} - {{ site.link }}</option>
+    {% endfor %}
+  </select>
+  <input type="submit" value="Добавить">
+</form>
 
 {% endblock %}

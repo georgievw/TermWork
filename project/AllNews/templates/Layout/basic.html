@@ -6,11 +6,22 @@
         <meta charset="UTF-8">
 	<title>Новости</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'AllNews/style.css' %}">
+	<script>
+	    function save_article(id) {
+	        document.getElementById(id).disabled = true;
+	        var xhr = new XMLHttpRequest({'id_ar':id});
+	        var body = 'id_ar=' + id;
+	        var params = 'id_ar=' + id;
+	        xhr.open("GET", '/news/?' + params, true)
+	        xhr.setRequestHeader('Content-Type', 'x-www-form-urlencoded')
+	        xhr.send(body); 
+	    }
+	</script>
     </head>		
     <body>
         <ul class="hr">     
             <li><a href = "/news/">Главная<a></li>
-            <li><a href = "/news/my_news">Мои новости</a></li>
+            <li><a href = "/news/my_news">Моя лента</a></li>
             <li><a href = "/news/my_saved">Сохранённые</a></li>
             <li><a href = "/news/settings">Личный кабинет</a></li>
             {% if user.is_authenticated %}

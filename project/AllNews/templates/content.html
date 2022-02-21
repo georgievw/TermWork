@@ -45,7 +45,7 @@
 
 {% for article in articles %}
 <br/>
-<div>
+<form>
     <p>{{ article.title }}</p>
     <ul>
         {% for tag in article.tags.all %}
@@ -56,9 +56,29 @@
     <p><a href="/news/sites/ {{ article.site.pk }}">{{ article.site.name }}</a><p> 
     <p>{{ article.published }}</p>
     {% if user.is_authenticated %}
-    <p>Сохранить</p>
+      {% if user not in article.users.all %}
+      <input type="submit" id={{article.pk}} value="Добавить в сохранённые" onclick="save_article({{article.pk}})">
+      {% endif %}
+      {% if user in article.users.all %}
+      <input type="submit" id={{article.pk}} value="Удалить из сохранённых" onclick="save_article({{article.pk}})">
+      {% endif %}
     {% endif %}
-</div>
+</form>
 {% endfor %}
+
+{% if articles.exists %}
+<br/><div>
+  {% if page.has_previous %}
+  <a href="?page={{ page.previous_page_number }}{{filter_ids}}">&lt;</a>
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  {% endif %}
+  Страница №{{ page.number }}
+  {% if page.has_next %}
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="?page={{ page.next_page_number }}{{filter_ids}}">&gt;</a>
+  {% endif %}
+</div>
+{% endif %}
+
 {% endblock %}
-  
+    
