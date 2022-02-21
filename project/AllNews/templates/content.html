@@ -1,8 +1,8 @@
 {% extends "Layout/basic.html" %}
 
 {% block content %}
-<div>
-  <form  action="">
+<div class="left">
+  <form  action="" class="tag">
     <div>
       <p>Источники:</p>
     </div>
@@ -24,61 +24,68 @@
         <option value={{ tag.pk}}>{{ tag.tag }}</option>
         {% endfor %}
       </select>
-    </div>
-    </div>
+    </div><br/>
+    <div>
       <select name="tag2_id">
         <option selected disabled>Все</option>
         {% for tag in tags2 %}
         <option value={{ tag.pk}}>{{ tag.tag }}</option>
         {% endfor %}
       </select>
-    </div>
+    </div><br/>
     <div>
       <input type="submit" value="Найти">
     </div>
   </form>
 </div>
 
-{% if not articles.exists %}
-<p>Ничего не найдено</p>
-{% endif %}
-
-{% for article in articles %}
-<br/>
-<form>
-    <p>{{ article.title }}</p>
-    <ul>
-        {% for tag in article.tags.all %}
-        <li>{{ tag.tag }}</li>
-        {% endfor %}
+<div class="right">
+  {% if not articles.exists %}
+  <p>Ничего не найдено</p>
+  {% endif %}
+  
+  {% for article in articles %}
+  <form>
+    <h1>{{ article.title }}</h1>
+    <a href="{{ article.link }}">{{ article.content }}</a> <br/>
+    <ul class="hr">
+      {% for tag in article.tags.all %}
+      <li class="tag">{{ tag.tag }}</li>
+      {% endfor %}
+      <li class="tag">{{ article.site.name }}</li>
     </ul>
-    <p><a href={{ article.link }}>{{ article.content }}</a></p>
-    <p><a href="/news/sites/ {{ article.site.pk }}">{{ article.site.name }}</a><p> 
-    <p>{{ article.published }}</p>
-    {% if user.is_authenticated %}
-      {% if user not in article.users.all %}
-      <input type="submit" id={{article.pk}} value="Добавить в сохранённые" onclick="save_article({{article.pk}})">
-      {% endif %}
-      {% if user in article.users.all %}
-      <input type="submit" id={{article.pk}} value="Удалить из сохранённых" onclick="save_article({{article.pk}})">
-      {% endif %}
+    <ul class="hr">
+      <li>{{ article.published }}</li>&nbsp;&nbsp;
+      {% if user.is_authenticated %}
+    
+        {% if user not in article.users.all %}
+        <li><input type="submit" id={{article.pk}} value="Добавить в сохранённые" onclick="save_article({{article.pk}})"></li>
+        {% endif %}
+    
+        {% if user in article.users.all %}
+        <li><input type="submit" id={{article.pk}} value="Удалить из сохранённых" onclick="save_article({{article.pk}})"></li>
+        {% endif %}  
+    
     {% endif %}
-</form>
-{% endfor %}
+    </ul>
+  </form>
+  <hr>
+  {% endfor %}
 
-{% if articles.exists %}
-<br/><div>
-  {% if page.has_previous %}
-  <a href="?page={{ page.previous_page_number }}{{filter_ids}}">&lt;</a>
-  &nbsp;&nbsp;|&nbsp;&nbsp;
+  {% if articles.exists %}
+  <div>
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}{{filter_ids}}">&lt;</a>
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    {% endif %}
+    Страница №{{ page.number }}
+    {% if page.has_next %}
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    <a href="?page={{ page.next_page_number }}{{filter_ids}}">&gt;</a>
+    {% endif %}
+  </div>
   {% endif %}
-  Страница №{{ page.number }}
-  {% if page.has_next %}
-  &nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="?page={{ page.next_page_number }}{{filter_ids}}">&gt;</a>
-  {% endif %}
+  
 </div>
-{% endif %}
-
 {% endblock %}
     

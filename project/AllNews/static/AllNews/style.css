@@ -1,3 +1,60 @@
-ul.hr li {
-  display: inline;
+html {
+  
 }
+
+a{
+  text-decoration: none;
+  color: #666;
+}
+
+
+header{
+  width: 100%;
+  background: #E9E9C1;
+  height: 60px;
+}
+
+ul.hr li {
+  display: inline-block;
+}
+
+.links {
+  vertical-align: baseline;
+}
+.left {
+  width: 12%;
+  float: left;
+}
+
+.right {
+  width: 85%;
+  margin-left: 15%;
+}
+
+.tag {
+  border-radius: 5px;
+  background: #E9E9C1;
+  padding: 10px;
+}
+
+.left_menu {
+  width: 60%;
+  float: left;
+}
+
+.right_menu {
+  width: 20%;
+  margin-left: 86%;
+}
+
+.filter {
+  border-radius: 5px;
+  background: #E9E9C1;
+  padding: 5px;
+}
+
+.settings {
+  width: 50%;
+  margin-left: 10%;
+}
+

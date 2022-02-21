@@ -47,7 +47,7 @@ def index(request):
     tags1 = Tag.objects.filter(tag='Мир') | Tag.objects.filter(tag='Россия')
     tags2 = Tag.objects.exclude(tag='Мир') & Tag.objects.exclude(tag='Россия')
     
-    paginator = Paginator(articles, 20)
+    paginator = Paginator(articles, 15)
     if 'page' in request.GET:
         page_num = request.GET['page']
     else:
@@ -80,21 +80,24 @@ def my_news(request):
         articles = articles | Article.objects.filter(site=new_site)
  
     if tag1_id != 0:
+        filter_ids['tag1_id'] = tag1_id    
         tag1 = Tag.objects.get(pk=tag1_id) 
         articles1 = tag1.article_set.all().order_by()
         articles = articles & articles1
     if tag2_id != 0:
+        filter_ids['tag2_id'] = tag2_id    
         tag2 = Tag.objects.get(pk=tag2_id) if tag2_id != 0 else tag1
         articles2 = tag2.article_set.all().order_by()
         articles = articles & articles2
     if site_id != 0:
+        filter_ids['site_id'] = site_id
         articles = articles.filter(site=site_id)     
     
     sites = request.user.site_set.all()   
     tags1 = Tag.objects.filter(tag='Мир') | Tag.objects.filter(tag='Россия')
     tags2 = Tag.objects.exclude(tag='Мир') & Tag.objects.exclude(tag='Россия')
     
-    paginator = Paginator(articles, 20)
+    paginator = Paginator(articles, 15)
     if 'page' in request.GET:
         page_num = request.GET['page']
     else:
@@ -122,21 +125,24 @@ def my_saved(request):
     filter_ids = {}
     
     if tag1_id != 0:
+        filter_ids['tag1_id'] = tag1_id    
         tag1 = Tag.objects.get(pk=tag1_id) 
         articles1 = tag1.article_set.all().order_by()
         articles = articles & articles1
     if tag2_id != 0:
+        filter_ids['tag2_id'] = tag2_id   
         tag2 = Tag.objects.get(pk=tag2_id) if tag2_id != 0 else tag1
         articles2 = tag2.article_set.all().order_by()
         articles = articles & articles2
     if site_id != 0:
+        filter_ids['site_id'] = site_id
         articles = articles.filter(site=site_id)      
    
     sites = Site.objects.all()
     tags1 = Tag.objects.filter(tag='Мир') | Tag.objects.filter(tag='Россия')
     tags2 = Tag.objects.exclude(tag='Мир') & Tag.objects.exclude(tag='Россия')
     
-    paginator = Paginator(articles, 20)
+    paginator = Paginator(articles, 15)
     if 'page' in request.GET:
         page_num = request.GET['page']
     else:
