@@ -2,27 +2,33 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-	<title>Новости</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'AllNews/style.css' %}">
-    </head>		
-    <body>
-        <ul class="hr">     
-            <li><a href = "/news/">Главная<a></li>
-            <li><a href = "/news/my_news">Мои новости</a></li>
-            <li><a href = "/news/my_saved">Сохранённые</a></li>
-            <li><a href = "/news/settings">Личный кабинет</a></li>
-            {% if user.is_authenticated %}
-            <li>{{ user.username }}</li>
-            <li><a href = "/accounts/logout">Выйти</a></li>
-            {% else %}
-            <li><a href = "/accounts/login">Войти</a></li>
-            {% endif %}
-        </ul>
-        <section>
-            {% block content %}
-            {% endblock %}
-        </section>
-    </body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Новости</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'AllNews/style.css' %}">
+  </head>		
+  <body>
+    <header class="header"><br/>
+      <ul class="hr"> 
+        <div class="left_menu">    
+          <li><a href = "/news/"><b>Главная<b/><a></li>&nbsp;&nbsp;
+          <li><a href = "/news/my_news"><b>Моя лента<b/></a></li>&nbsp;&nbsp;
+          <li><a href = "/news/my_saved"><b>Сохранённые<b/></a></li>&nbsp;&nbsp;
+          <li><a href = "/news/settings"><b>Личный кабинет<b/></a></li>
+        </div>
+        <div class="right_menu">  
+          {% if user.is_authenticated %}
+          <li><b>{{ user.username }}<b/></li>
+          <li><a href = "/accounts/logout"><b>Выйти<b/></a></li>
+          {% else %}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li><a href = "/accounts/login"><b>Войти<b/></a></li>
+          {% endif %}
+        </div>
+      </ul>
+    </header>
+    <section>
+    {% block content %}
+    {% endblock %}
+    </section>
+  </body>
 </html>

@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseRedirect
 
 @csrf_exempt   
-def index(request):
+def index(request): #контроллер для просмотра всех новостей
   if request.GET.get("id_ar", 0) != 0:
     article_id = request.GET.get("id_ar") #("id_ar", 1000)
     article = Article.objects.get(pk=article_id)
@@ -64,7 +64,7 @@ def index(request):
 
 @csrf_exempt       
 @login_required
-def my_news(request):
+def my_news(request): #контроллер для просмотра личной ленты новостей пользователя
     if not request.user.is_authenticated:
         redirect_to_login('/account/login')
         
@@ -113,7 +113,7 @@ def my_news(request):
     
 @csrf_exempt      
 @login_required    
-def my_saved(request):
+def my_saved(request): #контроллер для просмотра сохраненных новостей пользователя
     if not request.user.is_authenticated:
         redirect_to_login('/account/login')
         
@@ -158,7 +158,7 @@ def my_saved(request):
 
 @csrf_exempt     
 @login_required    
-def my_settings(request):
+def my_settings(request): #контроллер для редактирования списка интересующий источников
     if not request.user.is_authenticated:
         redirect_to_login('/account/login')
         

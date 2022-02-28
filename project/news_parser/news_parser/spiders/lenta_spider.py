@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 GEOTAGS = ['Россия', 'Мир']
 MAINTAGS = ['Политика', 'Экономика', 'Культура', 'Наука и техника', 'Спорт']
 
-def choose(d):
+def choose(d): #функция для выбора тегов сводки по вероятностям
   foo = max(d.values())
   for tag in d:
     if d.get(tag) == foo:
@@ -23,13 +23,13 @@ urls_list = {
     'https://ria.ru/lenta/' : ['div.list-item', 'div a.list-item__title::text', 'div.list-item__info div.list-item__date::text', 'a::attr(href)'],
     'https://lenta.ru/parts/news/' : ['li.parts-page__item', 'h3::text', 'div time::text', 'a::attr(href)'],
     'https://echo.msk.ru/news/' : ['div.preview', 'h3 a::text', 'h3 span::text', 'h3 a::attr(href)']
-}
+} #список адресов для парсинга и соответствующие им шаблоны выбора необходимой информации
     
-class LentaSpider(scrapy.Spider):
+class LentaSpider(scrapy.Spider): #объект парсера новостей
     name = "lenta"
     start_urls = urls_list
          
-    def parse(self, response):
+    def parse(self, response): #метод для парсинга сводок из всех указанным источников
            clf_topic = TextBayes()
            clf_geogr = TextBayes()
            with open('settings_topic.pickle', 'rb') as f:
